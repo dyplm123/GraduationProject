@@ -54,6 +54,9 @@
     <ClInclude Include="ICMPScan.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="TCPUDPScan.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SCAN.cpp">
@@ -84,6 +87,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ICMPScan.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TCPUDPScan.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

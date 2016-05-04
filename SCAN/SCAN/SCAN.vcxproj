@@ -116,6 +116,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TCPSYNDialog.h" />
     <ClInclude Include="TCPUDPDialog.h" />
+    <ClInclude Include="TCPUDPScan.h" />
     <ClInclude Include="tool.h" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +132,7 @@
     </ClCompile>
     <ClCompile Include="TCPSYNDialog.cpp" />
     <ClCompile Include="TCPUDPDialog.cpp" />
+    <ClCompile Include="TCPUDPScan.cpp" />
     <ClCompile Include="tool.cpp" />
   </ItemGroup>
   <ItemGroup>

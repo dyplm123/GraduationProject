@@ -46,7 +46,7 @@ BOOL DecodeIcmpResponse(char* pBuf, int iPacketSize,UINT destIP)
 	return FALSE;
 }
 
-DWORD IcmpRecv(SOCKET s, SOCKADDR_IN *saDest, CListBox *result)
+DWORD IcmpRecv(SOCKET s, SOCKADDR_IN *saFrom, SOCKADDR_IN *saDest, CListBox *result)
 {
 	//创建ICMP包接收缓冲区
 	char IcmpRecvBuf[1024];
@@ -54,7 +54,7 @@ DWORD IcmpRecv(SOCKET s, SOCKADDR_IN *saDest, CListBox *result)
 
 	int nRet;
 	int nAddrLen = sizeof(struct sockaddr_in);
-	SOCKADDR_IN *saFrom=NULL;
+	//SOCKADDR_IN *saFrom=NULL;
 
 	// Receive the echo reply	
 	nRet = recvfrom(s,					// socket
@@ -81,11 +81,19 @@ DWORD IcmpRecv(SOCKET s, SOCKADDR_IN *saDest, CListBox *result)
 	}
 	else if (WSAGetLastError() == WSAETIMEDOUT) //接收超时，打印星号
 	{
+		//result->AddString(_T("timeout"));
 		return 0;
+	}
+	else if (WSAGetLastError()==WSAEWOULDBLOCK)
+	{
+		//result->AddString(_T("would"));
+		return -1;
 	}
 	else
 	{
-		return -1;
+		CString t;
+		t.Format(_T("%d"), WSAGetLastError());
+		//result->AddString(t);
 	}
 	return 0;
 }
@@ -95,7 +103,7 @@ DWORD WINAPI IcmpScan(LPVOID pParament)
 	SOCKET sockRaw;
 	int iResult;
 	ICMPTHREADPARAM *pThreadParam = (ICMPTHREADPARAM *)pParament;
-	sockaddr_in destAddr = pThreadParam->addrDest;
+	sockaddr_in destAddr = pThreadParam->addrDest, addrSrc;
 	destAddr.sin_family = AF_INET;
 
 	sockRaw = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
@@ -125,7 +133,7 @@ DWORD WINAPI IcmpScan(LPVOID pParament)
 		return -1;
 	}
 
-	iResult = IcmpRecv(sockRaw,&destAddr, pThreadParam->result);
+	iResult = IcmpRecv(sockRaw, &addrSrc,&destAddr, pThreadParam->result);
 	return 0;
 }
 

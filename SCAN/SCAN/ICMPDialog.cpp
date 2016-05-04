@@ -46,6 +46,7 @@ END_MESSAGE_MAP()
 
 void CICMPDialog::InitSocket()
 {
+	m_result.AddString(_T("É¨Ãè½á¹û£º"));
 	GetDlgItem(IDC_START)->EnableWindow(TRUE);
 	if (pIcmpScan==NULL)
 		pIcmpScan = new ICMPScan();
@@ -65,6 +66,7 @@ void CICMPDialog::ClearnSocket()
 		delete(pIcmpScan);
 		pIcmpScan = NULL;
 	}
+	m_result.ResetContent();
 }
 
 UINT IcmpStartScan(LPVOID pParament)

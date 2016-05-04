@@ -18,4 +18,15 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
 
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnEnChangeEdit4();
+	CString m_startIP;
+	CString m_endIP;
+	CString m_startPort;
+	CString m_endPort;
+	CString m_result;
+	CString m_message;
+	afx_msg void OnBnClickedTcpstart();
+	afx_msg void OnBnClickedUdpstart();
+	afx_msg void OnBnClickedEnd();
 };
